@@ -29,7 +29,7 @@ License (MIT license):
 // - DNS request and response: http://www.ietf.org/rfc/rfc1035.txt
 // - Multicast DNS: http://www.ietf.org/rfc/rfc6762.txt
 
-#include "mdns.h"
+#include "sparkMDNS.h"
 
 #define HEADER_SIZE 12
 #define QDCOUNT_OFFSET 4
@@ -125,8 +125,8 @@ bool MDNSResponder::begin(const char* domain, IPAddress ip, uint32_t ttlSeconds)
   memcpy(records + A_RECORD_SIZE + 2 + TTL_OFFSET, ttl, 4);
   // Add IP address to response
 
-  if (ipAddress == INADDR_NONE) {
-    ipAddress = Network.localIP();
+  if (ip == INADDR_NONE) {
+    ip = WiFi.localIP();
   }
   
   records[IP_OFFSET]     = ip[0];
@@ -145,7 +145,7 @@ bool MDNSResponder::begin(const char* domain, IPAddress ip, uint32_t ttlSeconds)
     sockaddr_in address;
     memset(&address, 0, sizeof(address));
     address.sin_family = AF_INET;
-    address.sin_port = htons(53l53);
+    address.sin_port = htons(5353);
     address.sin_addr.s_addr = htonl(ip2int(224, 0, 0, 251));
     if (bind(soc, (sockaddr*) &address, sizeof(address)) < 0) {
       return false;

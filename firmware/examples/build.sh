@@ -1,0 +1,1 @@
+spark compile mdns.ino ../sparkMDNS.cpp ../sparkMDNS.h 
