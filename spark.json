@@ -1,7 +1,7 @@
 {
-	"name": "mdns",
-	"author": "Krishnaraj Varma",
-	"version": "1.0.0",
+	"name": "sparkMDNS",
+	"author": "Thunderace (original port from Krishnaraj Varma)",
+	"version": "1.1.0",
 	"license": "MIT license",
 	"description": "Adafruit CC3000_MDNS Library for Spark Core"
 } 
