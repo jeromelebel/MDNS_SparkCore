@@ -1,4 +1,15 @@
-Spark Core and MDNS
+changelog
+=========
+
+09/04/2014 - 1.1.0 - API change : ip type changed from uint32_t to IPAddress - ip optional, set to local ip in that case.
+					 Update from deprecated Network API to new WiFi API.
+					 Compilation warnings removed.
+					 Source files renamed.
+					 Include paths changed to be used in the same directory than the user code.
+
+
+
+Spark Core and MDNS (fork from krvarma repository)
 -------------------
 
 Here is the Spark Core port of Adafruit MDNS library. The library provides the ability to setup a name for the Spark Core and resolve it. We can name the Core anything we want, the library will append "**.local**" to the name and we can access the Core using the URL "*name*.local".
