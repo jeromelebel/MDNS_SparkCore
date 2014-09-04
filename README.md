@@ -1,11 +1,12 @@
-changelog
+Changelog
 =========
 
-09/04/2014 - 1.1.0 - API change : ip type changed from uint32_t to IPAddress - ip optional, set to local ip in that case.
-					 Update from deprecated Network API to new WiFi API.
-					 Compilation warnings removed.
-					 Source files renamed.
-					 Include paths changed to be used in the same directory than the user code.
+09/04/2014 - 1.1.0 
+ API change : ip type changed from uint32_t to IPAddress - ip optional, set to local ip in that case.
+ Update from deprecated Network API to new WiFi API.
+ Compilation warnings removed.
+ Source files renamed.
+ Include paths changed to be used in the same directory than the user code.
 
 
 
