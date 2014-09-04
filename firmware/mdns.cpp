@@ -50,11 +50,11 @@ uint8_t MDNSResponder::_queryHeader[] = {
 
 int MDNSResponder::_mdnsSocket = -1;
 
-bool MDNSResponder::begin(const char* domain, uint32_t ip, uint32_t ttlSeconds)
+bool MDNSResponder::begin(const char* domain, IPAddress ip, uint32_t ttlSeconds)
 { 
   // Construct DNS request/response fully qualified domain name of form:
   // <domain length>, <domain characters>, 5, "local"
-  size_t n = strlen(domain);
+  int n = strlen(domain);
   if (n > 255) {
     // Can only handle domains that are 255 chars in length.
     return false;
@@ -124,11 +124,15 @@ bool MDNSResponder::begin(const char* domain, uint32_t ip, uint32_t ttlSeconds)
   memcpy(records + TTL_OFFSET, ttl, 4);
   memcpy(records + A_RECORD_SIZE + 2 + TTL_OFFSET, ttl, 4);
   // Add IP address to response
+
+  if (ipAddress == INADDR_NONE) {
+    ipAddress = Network.localIP();
+  }
   
-  records[IP_OFFSET]     = (uint8_t)(ip >> 24);
-  records[IP_OFFSET + 1] = (uint8_t)(ip >> 16);
-  records[IP_OFFSET + 2] = (uint8_t)(ip >> 8);
-  records[IP_OFFSET + 3] = (uint8_t) ip;
+  records[IP_OFFSET]     = ip[0];
+  records[IP_OFFSET + 1] = ip[1];
+  records[IP_OFFSET + 2] = ip[2];
+  records[IP_OFFSET + 3] = ip[3];
   
   // Open the MDNS socket if it isn't already open.
   if (_mdnsSocket == -1) {
@@ -141,9 +145,8 @@ bool MDNSResponder::begin(const char* domain, uint32_t ip, uint32_t ttlSeconds)
     sockaddr_in address;
     memset(&address, 0, sizeof(address));
     address.sin_family = AF_INET;
-    address.sin_port = htons(5353);
+    address.sin_port = htons(53l53);
     address.sin_addr.s_addr = htonl(ip2int(224, 0, 0, 251));
-    socklen_t len = sizeof(address);
     if (bind(soc, (sockaddr*) &address, sizeof(address)) < 0) {
       return false;
     }
