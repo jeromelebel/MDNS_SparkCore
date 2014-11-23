@@ -29,7 +29,7 @@ License (MIT license):
 // - DNS request and response: http://www.ietf.org/rfc/rfc1035.txt
 // - Multicast DNS: http://www.ietf.org/rfc/rfc6762.txt
 
-#include "sparkMDNS.h"
+#include "sparkMDNS_jeromelebel.h"
 
 #define HEADER_SIZE 12
 #define QDCOUNT_OFFSET 4
