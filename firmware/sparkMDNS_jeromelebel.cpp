@@ -57,7 +57,7 @@ bool MDNSResponder::begin(String domain, IPAddress ip, uint32_t ttlSeconds)
   } else {
     char buffer[domain.length() + 1];
     
-    domain.getBytes(buffer, domain.length() + 1);
+    domain.getBytes((unsigned char *)buffer, domain.length() + 1);
     return this->begin(domain, ip, ttlSeconds);
   }
 }
