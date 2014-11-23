@@ -1,6 +1,6 @@
 {
 	"name": "sparkMDNS",
-	"author": "Thunderace (original port from Krishnaraj Varma)",
+	"author": "jerome lebel (original port from Thunderace)",
 	"version": "1.1.0",
 	"license": "MIT license",
 	"description": "Adafruit CC3000_MDNS Library for Spark Core"
