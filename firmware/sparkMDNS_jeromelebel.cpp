@@ -38,6 +38,8 @@ License (MIT license):
 #define TTL_OFFSET 4
 #define IP_OFFSET 10
 
+#define DomainLimit         255
+
 // TODO: Put these in flash, or refactor away into better state handling.
 uint8_t MDNSResponder::_queryHeader[] = { 
   0x00, 0x00, // ID = 0
@@ -52,12 +54,12 @@ int MDNSResponder::_mdnsSocket = -1;
 
 bool MDNSResponder::begin(String domain, IPAddress ip, uint32_t ttlSeconds)
 {
-  if (domain.length() > 255) {
+  if (domain.length() > DomainLimit) {
     return false;
   } else {
     char buffer[domain.length() + 1];
     
-    domain.getBytes((unsigned char *)buffer, domain.length() + 1);
+    domain.toCharArray(buffer, domain.length() + 1);
     return this->begin(domain, ip, ttlSeconds);
   }
 }
@@ -67,7 +69,7 @@ bool MDNSResponder::begin(const char* domain, IPAddress ip, uint32_t ttlSeconds)
   // Construct DNS request/response fully qualified domain name of form:
   // <domain length>, <domain characters>, 5, "local"
   int n = strlen(domain);
-  if (n > 255) {
+  if (n > DomainLimit) {
     // Can only handle domains that are 255 chars in length.
     return false;
   }
