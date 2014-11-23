@@ -50,6 +50,18 @@ uint8_t MDNSResponder::_queryHeader[] = {
 
 int MDNSResponder::_mdnsSocket = -1;
 
+bool MDNSResponder::begin(String domain, IPAddress ip, uint32_t ttlSeconds)
+{
+  if (domain.length() > 255) {
+    return false;
+  } else {
+    char buffer[domain.length() + 1];
+    
+    domain.getBytes(buffer, domain.length() + 1);
+    return this->begin(domain, ip, ttlSeconds);
+  }
+}
+
 bool MDNSResponder::begin(const char* domain, IPAddress ip, uint32_t ttlSeconds)
 { 
   // Construct DNS request/response fully qualified domain name of form:
